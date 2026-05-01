@@ -1,15 +1,7 @@
 {
-  "version": 2,
-  "builds": [
-    { "src": "index.html", "use": "@vercel/static" },
-    { "src": "styles.css", "use": "@vercel/static" },
-    { "src": "app.js", "use": "@vercel/static" },
-    { "src": "manifest.webmanifest", "use": "@vercel/static" },
-    { "src": "service-worker.js", "use": "@vercel/static" },
-    { "src": "assets/**", "use": "@vercel/static" }
-  ],
-  "routes": [
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/(.*)", "dest": "/$1" }
-  ]
+  "buildCommand": "mkdir -p dist && cp -R index.html styles.css app.js manifest.webmanifest service-worker.js assets dist/",
+  "outputDirectory": "dist",
+  "installCommand": null,
+  "framework": null
 }
+
