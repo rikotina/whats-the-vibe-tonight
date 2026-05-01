@@ -1,0 +1,9 @@
+{
+  "name": "whats-the-vibe-tonight",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A vibe-first Tokyo discovery web app.",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

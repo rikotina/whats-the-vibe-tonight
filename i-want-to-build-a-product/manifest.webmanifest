@@ -1,0 +1,18 @@
+{
+  "name": "What's the Vibe Tonight?",
+  "short_name": "Tonight?",
+  "description": "Tokyo plans based on mood, outfit, budget, neighborhood, and social energy.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#141211",
+  "theme_color": "#141211",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

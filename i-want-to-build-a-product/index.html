@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What's the Vibe Tonight?</title>
+    <meta
+      name="description"
+      content="A vibe-first Tokyo discovery app for tasteful nights out based on mood, outfit, budget, neighborhood, and social energy."
+    />
+    <meta name="theme-color" content="#141211" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="Tonight?" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./assets/icon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./index.html" aria-label="What's the Vibe Tonight home">
+          <span class="brand-mark">夜</span>
+          <span>
+            <strong>What's the Vibe Tonight?</strong>
+            <small>Tokyo beta</small>
+          </span>
+        </a>
+        <nav class="topnav" aria-label="Primary">
+          <button class="nav-button active" data-view="discover" type="button">Discover</button>
+          <button class="nav-button" data-view="saved" type="button">Saved</button>
+          <button class="nav-button" data-view="admin" type="button">Admin</button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="view active" id="discover-view">
+          <div class="hero">
+            <div>
+              <p class="eyebrow">Tokyo plans based on mood, not categories</p>
+              <h1>Tell us who you are tonight.</h1>
+              <p class="hero-copy">
+                Get three tasteful options: the sure thing, the bolder move, and the easiest fallback.
+              </p>
+            </div>
+            <div class="night-card" aria-label="Featured Tokyo night preview">
+              <div class="night-sky"></div>
+              <div class="night-card-body">
+                <span>Tonight's sample arc</span>
+                <strong>Nakameguro wine bar &rarr; quiet listening room &rarr; late dessert</strong>
+              </div>
+            </div>
+          </div>
+
+          <form class="vibe-form" id="vibe-form">
+            <fieldset>
+              <legend>Mood</legend>
+              <div class="option-grid" id="mood-options"></div>
+            </fieldset>
+
+            <div class="control-grid">
+              <label>
+                Neighborhood
+                <select id="neighborhood"></select>
+              </label>
+              <label>
+                Budget
+                <select id="budget"></select>
+              </label>
+              <label>
+                Outfit
+                <select id="outfit"></select>
+              </label>
+              <label>
+                Social energy
+                <select id="energy"></select>
+              </label>
+              <label>
+                Time
+                <select id="time"></select>
+              </label>
+              <label>
+                Reservation tolerance
+                <select id="friction"></select>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button class="primary-action" type="submit">Find tonight</button>
+              <button class="ghost-action" id="soft-reset" type="button">Reset</button>
+            </div>
+          </form>
+
+          <section class="results-panel" aria-live="polite">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Recommendations</p>
+                <h2>Your three moves</h2>
+              </div>
+              <div class="tuning-actions">
+                <button type="button" data-tune="quieter">Quieter</button>
+                <button type="button" data-tune="bolder">Bolder</button>
+                <button type="button" data-tune="cheaper">Lower budget</button>
+              </div>
+            </div>
+            <div class="result-grid" id="results"></div>
+          </section>
+        </section>
+
+        <section class="view" id="saved-view">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Saved nights</p>
+              <h2>Places you wanted to remember</h2>
+            </div>
+            <button class="ghost-action" id="clear-saved" type="button">Clear saved</button>
+          </div>
+          <div class="result-grid" id="saved-list"></div>
+        </section>
+
+        <section class="view" id="admin-view">
+          <div class="admin-layout">
+            <div>
+              <p class="eyebrow">Admin</p>
+              <h2>Curate the database</h2>
+              <p class="muted">
+                Add or edit places locally. This is the first lightweight admin surface before a real back office.
+              </p>
+              <div class="stats" id="stats"></div>
+            </div>
+
+            <form class="admin-form" id="place-form">
+              <input type="hidden" id="place-id" />
+              <label>
+                Place name
+                <input id="place-name" required placeholder="Aoyama listening bar" />
+              </label>
+              <div class="control-grid">
+                <label>
+                  Neighborhood
+                  <input id="place-neighborhood" required placeholder="Aoyama" />
+                </label>
+                <label>
+                  Category
+                  <input id="place-category" required placeholder="Bar" />
+                </label>
+                <label>
+                  Budget
+                  <select id="place-budget"></select>
+                </label>
+                <label>
+                  Walk-in
+                  <select id="place-walkin"></select>
+                </label>
+              </div>
+              <label>
+                One-liner
+                <input id="place-oneliner" required placeholder="Quietly polished, good for a second drink." />
+              </label>
+              <label>
+                Vibe tags
+                <input id="place-tags" required placeholder="quiet, polished, date, dressed-up" />
+              </label>
+              <label>
+                Practical notes
+                <textarea id="place-notes" rows="4" placeholder="Best time, avoid-if, what comes next."></textarea>
+              </label>
+              <div class="form-actions">
+                <button class="primary-action" type="submit">Save place</button>
+                <button class="ghost-action" id="new-place" type="button">New</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin-list" id="admin-list"></div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="place-dialog">
+      <div class="dialog-shell">
+        <button class="icon-button" id="close-dialog" type="button" aria-label="Close">x</button>
+        <div id="place-detail"></div>
+      </div>
+    </dialog>
+
+    <script src="./app.js"></script>
+    <script>
+      if ("serviceWorker" in navigator && location.protocol !== "file:") {
+        navigator.serviceWorker.register("./service-worker.js");
+      }
+    </script>
+  </body>
+</html>
